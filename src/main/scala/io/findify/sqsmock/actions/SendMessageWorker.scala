@@ -20,7 +20,7 @@ class SendMessageWorker(account:Long, queues:mutable.Map[String,QueueCache], sys
       queue <- queues.get(queueUrl)
     ) yield {
       val msg = Message(messageBody)
-      log.debug("pushing message {} to queue", msg)
+      log.info("pushing message {} to queue", msg)
       queue.enqueue(msg)
       HttpResponse(StatusCodes.OK, entity = SendMessageResponse(msg).toXML.toString())
     }
